@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "QnA-app",
+    "slug": "QnA-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "QnA-app"
+}
