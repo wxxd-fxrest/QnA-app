@@ -5,12 +5,20 @@ import { EvilIcons } from '@expo/vector-icons';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Profile from "./Profile";
+import Share from 'react-native-share';
+import { Linking } from 'react-native';
+import { WebView } from 'react-native-webview';
+import * as WebBrowser from "expo-web-browser";
 
 const Setup = () => {
-    const navigation = useNavigation();
 	const [currentUser, setCurrentUser] = useState([]);
     const [getUserData, setGetUserData] = useState([]);
     const [getProfileData, setGetProfileData] = useState([]);
+
+    const goWebSite = async() => {
+        const WebURL = `https://wxxd-fxrest.github.io/ask-app/profile/${currentUser.email}`; 
+        await WebBrowser.openBrowserAsync(WebURL)
+    };
 
 	useEffect(() => {
         setCurrentUser(auth().currentUser);
@@ -38,24 +46,16 @@ const Setup = () => {
         <Container>
             <Profile getUserData={getUserData} getProfileData={getProfileData}/>
             <Empty />
-            <ShareIconBox onPress={() => {
-                navigation.navigate('ShareStack', {
-                    screen: 'Share',
-                    params: {
-                        data: getUserData, 
-                    }
-                })
-            }}>
-                <ShareIcon name="share-google" size={24} color="black" />
+            <ShareIconBox onPress={goWebSite}>
+                <Title> 페이지를 공유해보세요! </Title>
+                <ShareIcon name="share-google" size={30} color="black" />
             </ShareIconBox>
         </Container>
     )
 };
 
-// 공유 해야 함 챗 지피티 보고~ 
 const Container = styled.View`
     flex: 1;
-    /* background-color: grey; */
     padding: 10px 30px;
 `;
 
@@ -67,7 +67,9 @@ const Empty = styled.View`
 `;
 
 const ShareIconBox = styled.TouchableOpacity`
-    background-color: green;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const ShareIcon = styled(EvilIcons)``;

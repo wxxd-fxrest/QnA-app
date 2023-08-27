@@ -19,7 +19,6 @@ const Tab = ({ navigation: {setOptions}, route: {params} }) => {
     return (
         <NativeTab.Navigator 
             screenOptions={{
-                tabBarShowLabel: false,
                 headerShown: false,
                 headerStyle: {
                     backgroundColor: "white",
@@ -32,21 +31,22 @@ const Tab = ({ navigation: {setOptions}, route: {params} }) => {
                     marginTop: 10,
                 },
                 tabBarLabelStyle: {
-                    fontSize: 12,
-                    fontWeight: "700", 
-                    marginBottom: -8,
+                    fontSize: 10,
+                    fontWeight: "400", 
+                    marginBottom: -5,
+                    color: colors.headerColor
                 },
             }}
         >
 
-            <NativeTab.Screen name="Answer" component={Answer} 
+            <NativeTab.Screen name="답변하기" component={Answer} 
                 options={{
                     tabBarIcon: ({focused}) => {
                         return <Ionicons name={focused ? "ios-chatbubble-ellipses" : "ios-chatbubble-ellipses-outline"} color={focused ? colors.headerColor : colors.pointColor} size={28} />
                     }
                 }} 
             />
-            <NativeTab.Screen name="Favorites" component={Favorites} 
+            <NativeTab.Screen name="즐겨찾기" component={Favorites} 
                 options={{
                     tabBarIcon: ({focused}) => {
                         return <MaterialIcons name="bubble-chart" color={focused ? colors.headerColor : colors.pointColor} size={30} />

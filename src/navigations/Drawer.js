@@ -4,7 +4,6 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import CustomDrawer from '../components/CustomDrawer.js';
 import AskScreen from '../screens/AskScreen';
-import FriendList from '../screens/friend/FriendList';
 import Tab from './Tab';
 import Stack from './Stack';
 import { colors } from '../../colors';
@@ -74,7 +73,7 @@ const Drawer = () => {
 				}}
 			/>
 
-            <NavigateDrawer.Screen name="Profile"  component={Tab} 
+            <NavigateDrawer.Screen name={getUserData ? getUserData.name || '프로필' : '프로필'}  component={Tab} 
 				options={{
 					drawerIcon: ({focused}) => {
 						return <MaterialIcons name="bubble-chart" color={focused ? 'white' : 'rgba(45, 68, 33, 0.4)'} size={23} />
@@ -83,16 +82,7 @@ const Drawer = () => {
 				initialParams={{getUserData}}
 			/>
 
-            <NavigateDrawer.Screen name="Friend" component={FriendList} 
-				options={{
-					drawerIcon: ({focused}) => {
-						return <Fontisto name="persons" color={focused ? 'white' : 'rgba(45, 68, 33, 0.4)'} size={20} />
-					}
-				}}
-				initialParams={{getUserData}}
-			/>
-
-            <NavigateDrawer.Screen name="Setup" component={Stack} 
+            <NavigateDrawer.Screen name="설정" component={Stack} 
 				options={{
 					drawerIcon: ({focused}) => {
 						return <AntDesign name="setting"color={focused ? 'white' : 'rgba(45, 68, 33, 0.4)'} size={20} />

@@ -14,6 +14,7 @@ const ProfileEdit = ({getUserData, getProfileData, onEdit}) => {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+    const [saveImgUrl, setSaveImgUrl] = useState('');
 
     useEffect(() => {
         const uploadImage = async () => {
@@ -26,8 +27,14 @@ const ProfileEdit = ({getUserData, getProfileData, onEdit}) => {
                 const reference = storage().ref(`/profile/${asset.fileName}`);
                 await reference.putFile(asset.uri);
                 const IMG_URL = await reference.getDownloadURL();
-                console.log('IMG_URL', IMG_URL);
+                // console.log('IMG_URL', IMG_URL);
+                setSaveImgUrl(IMG_URL);
                 setLoading(false);
+                if(saveImgUrl) {
+                    Image.getSize(saveImgUrl, (w, h) => {
+                        setHeight(h * (width / w));
+                    });
+                }
             } catch (e) {
                 console.error(e);
                 setLoading(false);
@@ -55,15 +62,15 @@ const ProfileEdit = ({getUserData, getProfileData, onEdit}) => {
           aspect: [1, 1],
         });
       
-        console.log('result', result);
+        // console.log('result', result);
         setImageUrl(result);
-    };      
+    };         
 
     const onImgEdit = async() => {
         if(imageUrl) {
             await firestore().collection('Users').doc(`${getUserData.email}`)
                 .collection('UsersData').doc('URL').set({
-                profileImgURL: imageUrl,
+                profileImgURL: saveImgUrl,
             });
         }
         if(text) {
@@ -93,7 +100,7 @@ const ProfileEdit = ({getUserData, getProfileData, onEdit}) => {
 
                 <ProfileImageBox onPress={handleImagePick}>
                     <EditIcon name="camera-outline" size={45} color="white" />
-                    <ProfileImage source={imageUrl ? {uri: imageUrl} :  getProfileData ? {uri: getProfileData.profileImgURL} : DefaultImage}/>
+                    <ProfileImage source={saveImgUrl ? {uri: saveImgUrl} :  getProfileData ? {uri: getProfileData.profileImgURL} : DefaultImage}/>
                 </ProfileImageBox>
 
                 <Empty />
