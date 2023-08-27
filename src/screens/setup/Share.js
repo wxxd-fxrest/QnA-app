@@ -6,7 +6,6 @@ import { EvilIcons } from '@expo/vector-icons';
 const Share = ({ navigation: {setOptions}, route: {params} }) => {
     const postId = params.data.name;
     const postUrl = `https://wood-forest-ask.com/${postId}`;
-    // console.log("postUrl", postUrl);
 
     const onShare = async () => {
         try {
