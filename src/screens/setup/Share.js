@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { EvilIcons } from '@expo/vector-icons'; 
 
 const Share = ({ navigation: {setOptions}, route: {params} }) => {
-    // console.log(params.data.name);
-
     const postId = params.data.name;
     const postUrl = `https://wood-forest-ask.com/${postId}`;
     // console.log("postUrl", postUrl);
