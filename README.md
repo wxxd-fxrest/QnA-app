@@ -10,3 +10,4 @@ React-Native + Firebase + Api (02)
   소셜 로그인
   회원 정보 수정
 
+![REDME_Ask](https://github.com/wxxd-fxrest/QnA-app/blob/master/REDME_Ask.png)
